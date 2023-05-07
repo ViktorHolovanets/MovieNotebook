@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  eveningviewingserver:
+    image: ${DOCKER_REGISTRY-}eveningviewingserver
+    build:
+      context: .
+      dockerfile: EveningViewingServer/Dockerfile
+
+  db:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    environment:
+      SA_PASSWORD: "S3cur3P@ssW0rd!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+
