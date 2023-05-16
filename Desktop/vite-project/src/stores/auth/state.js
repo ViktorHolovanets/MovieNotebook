@@ -1,5 +1,5 @@
 export default {
     myViews: [],
-    token: '',
+    token: '1',
     isActive: true,
 };
