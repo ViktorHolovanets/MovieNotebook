@@ -9,7 +9,7 @@ import java.util.List;
 public class Singleton {
     private static Singleton instance;
     private final List<UserView> userViews = new ArrayList<>();
-    private String token;
+    private String token="15";
     private User user;
 
     public String getToken() {

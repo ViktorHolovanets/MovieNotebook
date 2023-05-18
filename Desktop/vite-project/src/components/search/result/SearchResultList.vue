@@ -1,7 +1,7 @@
 <template>
 
     <div class="row">
-        <search-result-item v-for="item in items" :key="item.imdbID" :item="item"/>
+        <search-result-item v-if="items.length>0" v-for="item in items" :key="item.imdbID" :item="item"/>
     </div>
 </template>
 
