@@ -3,10 +3,11 @@
         <div class="content-filter bg-black  p-5 rounded text-bg-danger col-12 col-sm-12 col-md-6 col-lg-4">
             <div class="h3 text-center m-4">Filter</div>
             <hr/>
+            <input type="text" class="form-control" v-model="title">
             <checkbox-component :is-checked="isMovie" @update:isChecked="isMovie = $event" :label="'Movie'"/>
             <checkbox-component :is-checked="isSerial" @update:isChecked="isSerial = $event" :label="'Serial'"/>
-            <select class="w-75 d-block m-3">
-                <option value="All">All</option>
+            <select class="w-75 d-block m-3" v-model="year">
+                <option value="null">All</option>
                 <option v-for="year in getYearsRange(1965, getCurrentYear())" :value="year">{{ year }}</option>
             </select>
             <button class="btn btn-outline-success col-12 col-sm-12 col-md-6 col-lg-4 m-2" v-on:click="search">Search</button>
@@ -16,6 +17,7 @@
 </template>
 
 <script>
+import {_search} from "../../../services/http/httpRequestToServer";
 import CheckboxComponent from "../../elements/checkboxComponent.vue";
 import {mapActions} from "vuex";
 
@@ -28,6 +30,8 @@ export default {
         return {
             isMovie: false,
             isSerial: false,
+            year:null,
+            title:'',
         };
     },
     computed: {
@@ -49,11 +53,28 @@ export default {
         },
     },
     methods: {
-        ...mapActions(['updateIsFilter']),
-        search() {
-            console.log(this.isMovie);
-            console.log(this.isSerial);
-        },
+        ...mapActions(['updateIsFilter', 'updateSearchResult']),
+        async search() {
+            const type = this.isMovie && !this.isSerial ? "movie" : this.isSerial && !this.isMovie ? "series" : null;
+
+            const params = {
+                search: this.title,
+                page: 1,
+                year: this.year
+            };
+
+            if (type !== null) {
+                params.type = type;
+            }
+            console.log(params);
+            const data = await _search(params);
+            if(data.value){
+                this.updateSearchResult(data.value);
+            }
+            this.$router.push({ name: 'find'});
+            console.log(data);
+        }
+        ,
         exit() {
             this.updateIsFilter(false);
         },

@@ -130,7 +130,7 @@ public class SearchFragment extends Fragment {
                 } else if (!isSerial && isMovie) {
                     paramsSearch.setType("movie");
                 }
-                paramsSearch.setYear(year);
+                paramsSearch.setYear(year=="All"?null:year);
 
                 dialog.dismiss();
                 isOpenFilter=false;

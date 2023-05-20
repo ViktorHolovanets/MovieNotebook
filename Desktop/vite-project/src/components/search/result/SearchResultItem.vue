@@ -1,15 +1,15 @@
 <template>
 
     <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-        <div class="card text-white card-has-bg click-col" :style="`background-image:url(${item.Poster})`">
+        <div class="card text-white card-has-bg click-col" :style="`background-image:url(${item.poster})`">
             <img class="card-img d-none" :src="item.Poster">
             <div class="card-img-overlay d-flex flex-column">
                 <div class="card-body">
-                    <small class="text-success fw-bold mb-2">{{ item.Year }}</small>
-                    <div class="card-title mt-0 h4">{{ item.Title }}</div>
+                    <small class="text-success fw-bold mb-2">{{ item.year }}</small>
+                    <div class="card-title mt-0 h4">{{ item.title }}</div>
                 </div>
                 <div>
-                    <h6 class="my-0 text-white d-block">{{ item.Type }}</h6>
+                    <h6 class="my-0 text-white d-block">{{ item.type }}</h6>
                     <button class="btn btn-success col-12">View</button>
                 </div>
             </div>
@@ -49,7 +49,7 @@ export default {
     background-position: center center;
 
     &:hover {
-      transform: scale(0.98);
+      transform: scale(1.1);
       box-shadow: 0 0 5px -2px rgba(0, 0, 0, 0.3);
       background-size: 130%;
       transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);

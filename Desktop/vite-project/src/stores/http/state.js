@@ -5,4 +5,5 @@ export default {
     login: '/api/login',
     register: '/api/register',
     search: '/search',
+    addMovie: '/new/views',
 };

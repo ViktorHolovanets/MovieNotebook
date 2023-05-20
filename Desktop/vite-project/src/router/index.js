@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HelloWorld from "../components/HelloWorld.vue";
+import SearchComponent from "../components/search/result/SearchComponent.vue";
 
 
 
@@ -12,6 +13,12 @@ const router = createRouter({
             name: 'home',
             component: HelloWorld,
         },
+        {
+            path: '/find',
+            name: 'find',
+            component: SearchComponent,
+            props: true
+        }
         // {
         //     path: '/player',
         //     name: 'player',

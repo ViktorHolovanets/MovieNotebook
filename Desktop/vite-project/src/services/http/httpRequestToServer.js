@@ -20,3 +20,13 @@ export function _login(data) {
         resolve(post(store.getters['login'], data))
     })
 }
+export function _addMovie(data) {
+    return new Promise((resolve, reject) => {
+        resolve(post(store.getters['addMovie'], data))
+    })
+}
+export function _search(data) {
+    return new Promise((resolve, reject) => {
+        resolve(post(store.getters['search'], data))
+    })
+}

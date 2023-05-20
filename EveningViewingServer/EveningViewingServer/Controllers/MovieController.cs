@@ -25,7 +25,7 @@ namespace EveningViewingServer.Controllers
             _httpService = httpService;
             _mdbApi = new OmdbApi(db);
         }
-        [Authorize]
+        
         [HttpPost("search")]
         public async Task<IActionResult> GetMovies([FromBody] MovieRequest request)
         {
