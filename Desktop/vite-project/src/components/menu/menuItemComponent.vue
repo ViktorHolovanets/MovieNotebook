@@ -2,7 +2,7 @@
     <div class="button" :style="{
     bottom: bottom,
     right: right,
-    background: background+ ' no-repeat 50% 45%/50% 45% #e8e8f3'
+    background: background+ ' no-repeat 50% 45%/50% 45% #7e7ef6'
   }"
     v-on:click="onClick"></div>
 </template>
@@ -33,11 +33,9 @@ export default {
 
 <style scoped lang="scss">
 .button {
-  background: no-repeat 50% 45%/50% 45% #e8e8f3;
   padding: 30px;
   border-radius: 50%;
   cursor: pointer;
-  background: #e8e8f3;
   position: absolute;
   bottom: 0;
   right: 0;

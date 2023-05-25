@@ -2,7 +2,7 @@ import axios from 'axios';
 import store from "../../stores";
 import exception from "../exceptions/handlerErrorHttp";
 
-const url = store.getters['url'];
+const url = store.getters.url;
 
 export async function get(path, config) {
     return new Promise(async (resolve, reject) => {
@@ -16,6 +16,9 @@ export async function get(path, config) {
 }
 
 export async function post(path, data, config) {
+    console.log(url + path);
+    console.log(url);
+    console.log(path);
     return new Promise(async (resolve, reject) => {
         await axios.post(url + path, data, config).then(response => {
             resolve(response.data)

@@ -6,4 +6,6 @@ export default {
     register: '/api/register',
     search: '/search',
     addMovie: '/new/views',
+    infoMovie: '/serial/season',
+    updateMovie: '/update/serial',
 };

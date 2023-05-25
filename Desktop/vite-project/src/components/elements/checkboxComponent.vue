@@ -54,17 +54,14 @@ export default {
 }
 
 .checkbox-wrapper-26 label {
-    --size: 25px;
-    --shadow: calc(var(--size) * .07) calc(var(--size) * .1);
-
+    --size: 20px;
     position: relative;
     display: block;
     width: var(--size);
     height: var(--size);
     margin: 0 auto;
-    background-color: #f72414;
+    background-color: #1449f7;
     border-radius: 50%;
-    box-shadow: 0 var(--shadow) #ffbeb8;
     cursor: pointer;
     transition: 0.2s ease transform, 0.2s ease background-color,
     0.2s ease box-shadow;
@@ -84,14 +81,12 @@ export default {
     background-color: #fff;
     transform: translateY(-50%);
     border-radius: 50%;
-    box-shadow: inset 0 var(--shadow) #ffbeb8;
     transition: 0.2s ease width, 0.2s ease height;
 }
 
 .checkbox-wrapper-26 label:hover:before {
     width: calc(var(--size) * .55);
     height: calc(var(--size) * .55);
-    box-shadow: inset 0 var(--shadow) #ff9d96;
 }
 
 .checkbox-wrapper-26 label:active {
@@ -125,7 +120,7 @@ export default {
     bottom: 0;
     width: calc(var(--size) * .1);
     height: calc(var(--size) * .3);
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.23);
+    box-shadow: -2px 0 5px rgba(220, 217, 217, 0.23);
     transform: translateY(calc(var(--size) * -.68));
 }
 
@@ -134,13 +129,12 @@ export default {
     bottom: 0;
     width: 100%;
     height: calc(var(--size) * .1);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 3px 5px rgba(245, 242, 242, 0.23);
     transform: translateX(calc(var(--size) * .78));
 }
 
 .checkbox-wrapper-26 input[type="checkbox"]:checked + label {
     background-color: #07d410;
-    box-shadow: 0 var(--shadow) #92ff97;
 }
 
 .checkbox-wrapper-26 input[type="checkbox"]:checked + label:before {

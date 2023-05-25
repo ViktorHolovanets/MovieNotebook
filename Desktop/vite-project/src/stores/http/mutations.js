@@ -12,7 +12,7 @@ export default {
         state.register = register;
     },
     setSearch(state, search) {
-        state.search = search;
+        state.resultSearch = search;
     },
     SET_ERROR(state, message) {
         state.isError = true;

@@ -10,7 +10,7 @@
                 </div>
                 <div>
                     <h6 class="my-0 text-white d-block">{{ item.type }}</h6>
-                    <button class="btn btn-success col-12">View</button>
+                    <button class="btn btn-success col-12" v-on:click="addView">View</button>
                 </div>
             </div>
         </div>
@@ -19,14 +19,26 @@
 </template>
 
 <script>
+import {_addMovie} from "../../../services/http/httpRequestToServer";
+import {mapActions, mapGetters} from "vuex";
+
 export default {
     name: "SearchResultItem",
     props: {
         item: Object,
     },
+    computed: {
+        ...mapGetters(['getMyViews'])
+    },
     methods: {
         showItem() {
             console.log(this.item)
+        },
+        async addView() {
+            const data = await _addMovie(this.item);
+            if (!data.isError) {
+                this.getMyViews.push(data);
+            }
         }
     }
 }

@@ -5,5 +5,8 @@ const getters= {
     getSearchResult(state) {
         return state.resultSearch;
     },
+    getParams(state) {
+        return state.params;
+    },
 };
 export default getters

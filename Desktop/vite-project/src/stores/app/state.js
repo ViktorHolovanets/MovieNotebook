@@ -1,4 +1,10 @@
 export default {
     isOpenFilter: false,
-    resultSearch:[]
+    resultSearch:[],
+    params:{
+        type:null,
+        search: null,
+        page: 0,
+        year: null
+    },
 };

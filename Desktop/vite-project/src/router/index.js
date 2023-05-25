@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HelloWorld from "../components/HelloWorld.vue";
 import SearchComponent from "../components/search/result/SearchComponent.vue";
+import MyViewItem from "../components/myViews/myViewItem.vue";
 
 
 
@@ -11,7 +12,7 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: HelloWorld,
+            component: MyViewItem,
         },
         {
             path: '/find',

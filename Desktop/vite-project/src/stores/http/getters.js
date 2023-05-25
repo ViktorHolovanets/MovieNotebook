@@ -11,8 +11,17 @@ export default {
     register(state) {
         return state.register;
     },
-    search(state) {
+    getSearch(state) {
         return state.search;
+    },
+    getAddMovie(state) {
+        return state.addMovie;
+    },
+    getInfoMovie(state) {
+        return state.infoMovie;
+    },
+    getUpMovie(state) {
+        return state.updateMovie;
     },
     STATE_MESSAGE: (state) => state.errorMessage,
     STATE_ERROR: (state) => state.isError,

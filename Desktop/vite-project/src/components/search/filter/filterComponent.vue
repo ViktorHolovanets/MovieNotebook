@@ -10,8 +10,10 @@
                 <option value="null">All</option>
                 <option v-for="year in getYearsRange(1965, getCurrentYear())" :value="year">{{ year }}</option>
             </select>
-            <button class="btn btn-outline-success col-12 col-sm-12 col-md-6 col-lg-4 m-2" v-on:click="search">Search</button>
-            <button class="btn btn-outline-danger col-12 col-sm-12 col-md-6 col-lg-4 m-2" v-on:click="exit">Exit</button>
+            <button class="btn btn-outline-success col-12 col-sm-12 col-md-6 col-lg-4 m-2" v-on:click="search">Search
+            </button>
+            <button class="btn btn-outline-danger col-12 col-sm-12 col-md-6 col-lg-4 m-2" v-on:click="exit">Exit
+            </button>
         </div>
     </div>
 </template>
@@ -19,7 +21,7 @@
 <script>
 import {_search} from "../../../services/http/httpRequestToServer";
 import CheckboxComponent from "../../elements/checkboxComponent.vue";
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
     name: "filterComponent",
@@ -30,11 +32,12 @@ export default {
         return {
             isMovie: false,
             isSerial: false,
-            year:null,
-            title:'',
+            year: null,
+            title: '',
         };
     },
     computed: {
+        ...mapGetters(['getParams']),
         updateIsMovie: {
             get() {
                 return this.isMovie;
@@ -53,26 +56,20 @@ export default {
         },
     },
     methods: {
-        ...mapActions(['updateIsFilter', 'updateSearchResult']),
+        ...mapActions(['updateIsFilter', 'updateSearchResult', 'updateParamTitle', 'updateParamType', 'updateParamPage', 'updateParamYear', 'updateIsFilter']),
         async search() {
             const type = this.isMovie && !this.isSerial ? "movie" : this.isSerial && !this.isMovie ? "series" : null;
-
-            const params = {
-                search: this.title,
-                page: 1,
-                year: this.year
-            };
-
-            if (type !== null) {
-                params.type = type;
-            }
-            console.log(params);
-            const data = await _search(params);
-            if(data.value){
+            this.updateParamType(type);
+            this.updateParamTitle(this.title)
+            this.updateParamPage(1)
+            this.updateParamYear(this.year)
+            const data = await _search(this.getParams);
+            this.updateIsFilter(false);
+            if (data.value) {
                 this.updateSearchResult(data.value);
             }
-            this.$router.push({ name: 'find'});
-            console.log(data);
+            this.$router.push({name: 'find'});
+
         }
         ,
         exit() {
@@ -98,10 +95,10 @@ export default {
 .modal-filter {
     left: 0;
     top: 0;
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
-    background-color: rgba(139, 112, 219, 0.7);
+    background-color: rgba(164, 168, 166, 0.7);
     z-index: 1000;
     display: flex;
     justify-content: space-around;
