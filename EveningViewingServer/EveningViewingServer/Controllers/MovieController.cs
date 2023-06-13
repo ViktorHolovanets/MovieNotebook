@@ -70,7 +70,7 @@ namespace EveningViewingServer.Controllers
             }
             return Ok(await _mdbApi.MarkedPointTask(movie, email));
         }
-        [Authorize]
+        
         [HttpPost("serial/season")]
         public async Task<IActionResult> InfoSerialTask([FromBody] SerialRequest request)
         {

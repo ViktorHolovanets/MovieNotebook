@@ -11,7 +11,7 @@
                         <select class="w-75 d-block m-3" v-model="item.episode">
                             <option v-for="number in episodes" :value="number">{{ number }}</option>
                         </select>
-                        <button class="btn btn-success btn-lg btn-floating" @click="update">Mark</button>
+                        <button class="button" @click="update">Mark</button>
                     </div>
                     <div class="postcard__title h1">{{item.myViews.movie.title}}</div>
                     <div class="postcard__preview-txt">{{item.myViews.plot}}</div>
@@ -26,30 +26,12 @@ import {_infoMovie, _updateMovie} from "../../services/http/httpRequestToServer"
 
 export default {
     name: "myViewItem",
-    // props:{
-    //     item:Object
-    // },
+    props:{
+        item:Object
+    },
     data(){
         return{
-            episodes:1,
-            item:{
-                "isView": false,
-                "seasons": 1,
-                "episode": 1,
-                "myViews": {
-                    "movie": {
-                        "imdbID": "tt0062544",
-                        "title": "The Batman/Superman Hour",
-                        "year": "1968–1969",
-                        "type": "series",
-                        "poster": "https://m.media-amazon.com/images/M/MV5BMzg5YTIzNjktZDU1MS00YmVhLWJjY2ItNWE5NjQ3Nzg1OTAwXkEyXkFqcGdeQXVyMTEyNzgwMDUw._V1_SX300.jpg"
-                    },
-                    "plot": "The Dynamic Duo battles crime in Gotham City.",
-                    "totalSeasons": 1,
-                    "actors": "Bud Collyer, Bob Hastings, Jackson Beck",
-                    "genre": "Animation, Action, Adventure"
-                }
-            }
+            episodes:this.item.episode,
         }
     },
     methods: {
@@ -85,15 +67,56 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
-.dark {
-  background: #110f16;
+.button {
+    display: inline-block;
+    padding: 12px 28px;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    background-image: linear-gradient(to bottom right, #00c6ff, #0072ff);
+    border: none;
+    border-radius: 40px;
+    box-shadow: 0px 4px 0px #0072ff;
+    transition: all 0.2s ease-in-out;
 }
+
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 0px #0072ff;
+}
+
+.button:active {
+    transform: translateY(0px);
+    box-shadow: none;
+    background-image: linear-gradient(to bottom right, #0072ff, #00c6ff);
+}
+
+.button:before,
+.button:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.button:before {
+    top: -3px;
+    left: -3px;
+    border-radius: 40px;
+}
+
+.button:after {
+    bottom: -3px;
+    right: -3px;
+    border-radius: 40px;
+}
+
+
 
 .postcard {
   flex-wrap: wrap;
   display: flex;
-
   box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.66);
   border-radius: 10px;
   margin: 0 0 2rem 0;
@@ -101,10 +124,9 @@ export default {
   position: relative;
   color: #ffffff;
 
-  &.dark {
+    &.dark {
     background-color: #18151f;
   }
-
 
   .small {
     font-size: 80%;
@@ -138,7 +160,7 @@ export default {
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: linear-gradient(-70deg, #424242, transparent 50%);
+    background-image: linear-gradient(-70deg, #7af3e1, transparent 50%);
     opacity: 1;
     border-radius: 10px;
   }

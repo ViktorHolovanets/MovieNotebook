@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HelloWorld from "../components/HelloWorld.vue";
 import SearchComponent from "../components/search/result/SearchComponent.vue";
 import MyViewItem from "../components/myViews/myViewItem.vue";
+import MyViewComponent from "../components/myViews/myViewComponent.vue";
 
 
 
@@ -12,7 +13,7 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: MyViewItem,
+            component: MyViewComponent,
         },
         {
             path: '/find',
@@ -20,31 +21,6 @@ const router = createRouter({
             component: SearchComponent,
             props: true
         }
-        // {
-        //     path: '/player',
-        //     name: 'player',
-        //     component: PlayerComponents,
-        // },
-        // {
-        //     path: '/SignIn',
-        //     name: 'login',
-        //     component: SignInViews
-        // },
-        // {
-        //     path: '/login',
-        //     name: 'login',
-        //     component: LogRegComponent,
-        // },
-        // {
-        //     path: '/profile/:id?',
-        //     name: 'profile',
-        //     component: ProfileComponent
-        // },
-        // {
-        //     path: '/SignUp',
-        //     name: 'register',
-        //     component: SignUpViews
-        // }
     ]
 })
 

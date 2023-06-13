@@ -1,6 +1,14 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 
+let docTitle=document.title;
+window.addEventListener('blur',()=>{
+  document.title="Come Back ;(";
+});
+window.addEventListener('focus',()=>{
+  document.title=docTitle;
+});
+
 function createWindow() {
   const win = new BrowserWindow({
     width: 800,

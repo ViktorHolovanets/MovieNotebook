@@ -3,10 +3,10 @@
         <div class="content-filter bg-black  p-5 rounded text-bg-danger col-12 col-sm-12 col-md-6 col-lg-4">
             <div class="h3 text-center m-4">Filter</div>
             <hr/>
-            <input type="text" class="form-control" v-model="title">
+            <input type="text" class="form-control input" placeholder="Enter title..." v-model="title"/>
             <checkbox-component :is-checked="isMovie" @update:isChecked="isMovie = $event" :label="'Movie'"/>
             <checkbox-component :is-checked="isSerial" @update:isChecked="isSerial = $event" :label="'Serial'"/>
-            <select class="w-75 d-block m-3" v-model="year">
+            <select class="d-block input form-control" v-model="year">
                 <option value="null">All</option>
                 <option v-for="year in getYearsRange(1965, getCurrentYear())" :value="year">{{ year }}</option>
             </select>
@@ -103,5 +103,22 @@ export default {
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+.input {
+    background-color: #212121;
+    padding: 10px;
+    color:white;
+    border: 2px solid white;
+    border-radius: 5px;
+    /* box-shadow: 3px 3px 2px rgb(249, 255, 85); */
+}
+
+.input:focus {
+    color: rgb(0, 255, 255);
+    background-color: #212121;
+    outline-color: rgb(0, 255, 255);
+    box-shadow: -3px -3px 15px rgb(0, 255, 255);
+    transition: .1s;
+    transition-property: box-shadow;
 }
 </style>

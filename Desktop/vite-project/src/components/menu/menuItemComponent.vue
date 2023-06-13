@@ -2,7 +2,7 @@
     <div class="button" :style="{
     bottom: bottom,
     right: right,
-    background: background+ ' no-repeat 50% 45%/50% 45% #7e7ef6'
+    background: background+ ' no-repeat 50% 45%/50% 45% #7e7776'
   }"
     v-on:click="onClick"></div>
 </template>

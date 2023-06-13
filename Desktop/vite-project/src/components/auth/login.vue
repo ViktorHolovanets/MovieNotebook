@@ -9,16 +9,18 @@
                         <input class="checkbox" type="checkbox" id="reg-log" name="reg-log" hidden="hidden"
                                v-on:change="toggleActive"/>
                         <label for="reg-log"></label>
-                        <div class="card-3d-wrap mx-auto col-6">
+                        <div class="card-3d-wrap mx-auto col-12 col-sm-10 col-md-6">
                             <div class="card-3d-wrapper">
                                 <div class="card-front">
                                     <div class="center-wrap">
                                         <div class="section text-center">
                                             <div class="form-group">
-                                                <input type="email" class="form-style" placeholder="Your Email" v-model="login_email">
+                                                <input type="email" class="form-style" placeholder="Your Email"
+                                                       v-model="login_email">
                                             </div>
                                             <div class="form-group mt-2">
-                                                <input type="password" class="form-style" placeholder="Your Password" v-model="login_password">
+                                                <input type="password" class="form-style" placeholder="Your Password"
+                                                       v-model="login_password">
                                             </div>
                                             <a class="btn m-4 btn-success" v-on:click="handleFormSubmit">Submit</a>
                                         </div>
@@ -28,17 +30,20 @@
                                     <div class="center-wrap">
                                         <div class="section text-center">
                                             <div class="form-group">
-                                                <input type="text" class="form-style" placeholder="Your Name" v-model="register_name">
+                                                <input type="text" class="form-style" placeholder="Your Name"
+                                                       v-model="register_name">
                                             </div>
                                             <div class="form-group mt-2">
-                                                <input type="email" class="form-style" placeholder="Your Email" v-model="register_email">
+                                                <input type="email" class="form-style" placeholder="Your Email"
+                                                       v-model="register_email">
                                             </div>
                                             <div class="form-group mt-2">
-                                                <input type="password" name="logpass" class="form-style" placeholder="Your Password"
+                                                <input type="password" name="logpass" class="form-style"
+                                                       placeholder="Your Password"
                                                        v-model="register_password">
                                             </div>
                                             <div class="form-group mt-2">
-                                                <input type="password"  class="form-style" placeholder="Confirm Password"
+                                                <input type="password" class="form-style" placeholder="Confirm Password"
                                                        v-model="register_confirmPassword">
                                             </div>
                                             <a class="btn m-4 btn-success" v-on:click="handleFormSubmit">Submit</a>
@@ -58,6 +63,7 @@
 import {_register, _login} from "../../services/http/httpRequestToServer"
 import {mapActions} from "vuex";
 import router from "../../router";
+
 export default {
     name: "login",
     data() {
@@ -67,13 +73,11 @@ export default {
             register_password: '',
             register_confirmPassword: '',
             register_email: '',
-            login_email:'',
-            login_password:'',
+            login_email: '',
+            login_password: '',
         };
     },
-    computed: {
-
-    },
+    computed: {},
     methods: {
         ...mapActions(['updateToken']),
         toggleActive() {
@@ -94,13 +98,26 @@ export default {
                     ConfirmPassword: this.register_confirmPassword
                 };
             }
+            if (!this.validateFields(dataRequest)) {
+                alert('Please fill in all fields.');
+                return;
+            }
             try {
                 const data = this.isActive ? await _login(dataRequest) : await _register(dataRequest);
                 await this.updateToken(data.token);
+                localStorage.setItem('token', data.token);
                 await router.push('/')
             } catch (error) {
                 console.error(error);
             }
+        },
+        validateFields(dataRequest) {
+            for (let key in dataRequest) {
+                if (!dataRequest[key]) {
+                    return false;
+                }
+            }
+            return true;
         }
     }
     ,
@@ -190,7 +207,8 @@ h6 span {
 .card-front, .card-back {
     width: 100%;
     height: 100%;
-    background-color: rgba(75, 7, 75, 70%);
+    /*background-color: rgba(75, 7, 75, 70%);*/
+    background: url(../../assets/images/fon.gif);
     overflow: hidden;
     position: absolute;
     border-radius: 6px;
