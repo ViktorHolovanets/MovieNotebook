@@ -3,54 +3,53 @@ import store from "../../stores";
 import exception from "../exceptions/handlerErrorHttp";
 
 const url = store.getters.url;
-
-export async function get(path, config) {
-    return new Promise(async (resolve, reject) => {
-        await axios.get(url + path, config).then(response => {
-            resolve(response.data)
-        }).catch(ex => {
-            exception(ex);
-        });
-
-    })
-}
-
-export async function post(path, data, config) {
-    console.log(url + path);
-    console.log(url);
-    console.log(path);
-    return new Promise(async (resolve, reject) => {
-        await axios.post(url + path, data, config).then(response => {
-            resolve(response.data)
-        }).catch(ex => {
-            resolve(exception(ex));
-        });
-
-    })
+function getConfig(){
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${store.getters.getToken}`
+        }
+    };
+    return config;
 }
 
 
-export async function put(path, data, config) {
-    return new Promise(async (resolve, reject) => {
-        await axios.put(path, data, config).then(response => {
-            resolve(response.data)
-        }).catch(ex => {
-            resolve(exception(ex));
-        });
-
-    })
+export async function get(path) {
+    try {
+        const response = await axios.get(url + path, getConfig());
+        return response.data;
+    } catch (error) {
+        exception(error);
+        throw error;
+    }
 }
 
-
-export async function deleteRequest(path, config) {
-    return new Promise(async (resolve, reject) => {
-        axios.delete(path, config).then(response => {
-            resolve(response.data)
-        }).catch(ex => {
-            console.log(ex);
-            // resolve(exception(ex));
-        });
-
-    })
+export async function post(path, data) {
+    try {
+        const response = await axios.post(url + path, data, getConfig());
+        console.log(response.data)
+        return response.data;
+    } catch (error) {
+        exception(error);
+    }
 }
 
+export async function put(path, data) {
+    try {
+        const response = await axios.put(url + path, data, getConfig());
+        return response.data;
+    } catch (error) {
+        exception(error);
+        throw error;
+    }
+}
+
+export async function deleteRequest(path) {
+    try {
+        const response = await axios.delete(url + path, getConfig());
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        // exception(error);
+        throw error;
+    }
+}

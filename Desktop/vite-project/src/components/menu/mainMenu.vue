@@ -24,6 +24,7 @@
 import '@fortawesome/fontawesome-free/css/all.css';
 import MenuItemComponent from "./menuItemComponent.vue";
 import {mapActions} from "vuex";
+import router from "../../router";
 
 export default {
     name: "mainMenu",
@@ -36,6 +37,7 @@ export default {
         async exit() {
             await this.updateToken('');
             localStorage.clear();
+            await router.push('/');
         }
     }
 }

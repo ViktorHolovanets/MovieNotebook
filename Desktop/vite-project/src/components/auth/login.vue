@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import {_register, _login} from "../../services/http/httpRequestToServer"
+import {_register, _login, _getViews} from "../../services/http/httpRequestToServer"
 import {mapActions} from "vuex";
 import router from "../../router";
 
@@ -104,9 +104,12 @@ export default {
             }
             try {
                 const data = this.isActive ? await _login(dataRequest) : await _register(dataRequest);
-                await this.updateToken(data.token);
-                localStorage.setItem('token', data.token);
-                await router.push('/')
+                if(data.token){
+                    await this.updateToken(data.token);
+                    localStorage.setItem('token', data.token);
+                    await _getViews();
+                    await router.push('/')
+                }
             } catch (error) {
                 console.error(error);
             }

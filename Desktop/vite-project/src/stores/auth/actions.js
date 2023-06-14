@@ -2,16 +2,16 @@ export default {
     updateIsError(context, isError) {
         context.commit('setIsError', isError);
     },
-    updateUrl(context, url) {
-        context.commit('setUrl', url);
+    updateToken(context, token) {
+        context.commit('setToken', token);
     },
-    updateLogin(context, login) {
-        context.commit('setLogin', login);
-    },
-    updateRegister(context, register) {
-        context.commit('setRegister', register);
+    updateIsActive(context, isActive) {
+        context.commit('setIsActive', isActive);
     },
     updateSearch(context, search) {
         context.commit('setSearch', search);
+    },
+    updateMyViews(context, views) {
+        context.commit('setMyViews', views);
     },
 };

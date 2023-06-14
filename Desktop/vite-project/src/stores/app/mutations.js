@@ -16,5 +16,5 @@ export default {
     },
     setParamType(state, type){
         state.params.type=type;
-    }
+    },
 };

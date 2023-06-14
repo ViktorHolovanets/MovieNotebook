@@ -1,5 +1,5 @@
 export default {
-    myViews: [],
+    myViews: JSON.parse(localStorage.getItem('views')),
     token: localStorage.getItem('token'),
     isActive: true,
 };

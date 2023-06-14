@@ -4,7 +4,7 @@
             <article class="postcard dark blue">
                 <img class="postcard__img" :src="item.myViews.movie.poster" alt="Poster"/>
                 <div class="postcard__text">
-                    <div class="d-flex">
+                    <div class="d-flex" v-if="item.seasons!==null">
                         <select class="w-75 d-block m-3" v-model="item.seasons" @change="handleSelectChange">
                             <option v-for="number in item.myViews.totalSeasons" :value="number">{{ number }}</option>
                         </select>
@@ -61,6 +61,7 @@ export default {
         }
     },
     mounted() {
+        console.log(this.item)
         this.getEpisodes();
     }
 }
