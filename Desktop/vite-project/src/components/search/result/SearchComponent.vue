@@ -1,8 +1,10 @@
 <template>
-    <search-result-list :items="getSearchResult"/>
-    <div class="d-flex justify-content-center navigation">
-        <button v-if="page!=1" class="btn btn-success m-3" v-on:click="prev">Prev</button>
-        <button class="btn btn-primary m-3" v-on:click="next">Next</button>
+    <div class="z-index10">
+        <search-result-list :items="getSearchResult||[]"/>
+        <div class="d-flex justify-content-center navigation">
+            <button v-if="page!=1" class="btn btn-success m-3" v-on:click="prev">Prev</button>
+            <button class="btn btn-primary m-3" v-on:click="next">Next</button>
+        </div>
     </div>
 </template>
 
@@ -47,7 +49,7 @@ export default {
 </script>
 
 <style scoped>
-.navigation{
-    z-index: 5;
+.z-index10{
+    z-index: 10;
 }
 </style>

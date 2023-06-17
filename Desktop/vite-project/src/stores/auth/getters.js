@@ -5,8 +5,8 @@ const getters= {
     getToken(state) {
         return state.token;
     },
-    getIsActive(state) {
-        return state.isActive;
+    getIsLoad(state) {
+        return state.isLoad;
     },
 };
 export default getters

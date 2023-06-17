@@ -1,20 +1,25 @@
 <template>
     <div class="menu" onclick="this.classList.toggle('open')">
-        <i class="fas fa-caret-down text-white title-menu"></i>
-        <menu-item-component :bottom="'-50px'"
-                             :right="'50px'"
+        <i class="fas fa-caret-down text-white title-menu">Menu</i>
+        <menu-item-component :bottom="'-70px'"
+                             :right="'15px'"
                              :background="'url(https://unpkg.com/feather-icons@4.29.0/dist/icons/search.svg)'"
                              :onClick="showFilter"
+                             title="SEARCH"
         />
-        <menu-item-component :bottom="'0'"
-                             :right="'80px'"
+        <menu-item-component :bottom="'-14px'"
+                             :right="'100px'"
                              :background="'url(https://unpkg.com/feather-icons@4.29.0/dist/icons/video.svg)'"
+                             :onClick="goHome"
+                             title="My views"
         />
         <menu-item-component :bottom="'50px'"
-                             :right="'50px'"
+                             :right="'15px'"
                              :background="'url(https://unpkg.com/feather-icons@4.29.0/dist/icons/heart.svg)'"
+                             :onClick="goHomeWants"
+                             title="Want views"
         />
-        <div class="position-absolute button-exit bg-danger rounded rounded-circle button" @click="exit">
+        <div class="position-absolute button-exit bg-danger rounded rounded-circle button" @click="exit" title="EXIT">
             <i class="fas fa-arrow-right-from-bracket text-white"></i>
         </div>
     </div>
@@ -37,7 +42,13 @@ export default {
         async exit() {
             await this.updateToken('');
             localStorage.clear();
-            await router.push('/');
+            await this.goHome();
+        },
+        async goHome() {
+            await router.push({ name: 'home', params: { type: 'views' } });
+        },
+        async goHomeWants() {
+            await router.push({ name: 'home', params: { type: 'wants' } });
         }
     }
 }
@@ -48,15 +59,14 @@ export default {
 .menu,
 .menu:before,
 .menu:after {
-  border-radius: 50%;
+  border-radius: 10px;
+    padding: 5px;
 }
 
 .menu {
   position: fixed;
-  top: 70px;
-  right: 50px;
-  padding: 30px;
-  border-radius: 100%;
+  top: 75px;
+  right: 150px;
   cursor: pointer;
 
   &::before {
@@ -86,14 +96,6 @@ export default {
     top: 0;
   }
 
-  &::before {
-    transform: rotate(0deg);
-  }
-
-  &::after {
-    transform: rotate(-90deg);
-  }
-
   &.open {
     .button {
       opacity: 1;
@@ -116,13 +118,11 @@ export default {
 
 .title-menu {
   font-size: 1.5rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
 }
 .button-exit{
-    bottom: -60px;
+    bottom: -15px;
+    right: -63px;
     width: 60px;
     height: 60px;
     display: flex;

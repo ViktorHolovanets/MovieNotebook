@@ -9,4 +9,5 @@ export default {
     infoMovie_url: '/serial/season',
     updateMovie_url: '/update/serial',
     myViews_url: '/views',
+    delete_url: '/delete',
 };

@@ -108,7 +108,7 @@ export default {
                     await this.updateToken(data.token);
                     localStorage.setItem('token', data.token);
                     await _getViews();
-                    await router.push('/')
+                    await router.push({ name: 'home', params: { type: 'views' } })
                 }
             } catch (error) {
                 console.error(error);

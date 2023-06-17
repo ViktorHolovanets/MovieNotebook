@@ -26,6 +26,9 @@ export default {
     getViews(state) {
         return state.myViews_url;
     },
+    getDelete(state) {
+        return state.delete_url;
+    },
     STATE_MESSAGE: (state) => state.errorMessage,
     STATE_ERROR: (state) => state.isError,
 };

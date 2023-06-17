@@ -3,6 +3,7 @@
         <div class="container py-4">
             <article class="postcard dark blue">
                 <img class="postcard__img" :src="item.myViews.movie.poster" alt="Poster"/>
+
                 <div class="postcard__text">
                     <div class="d-flex" v-if="item.seasons!==null">
                         <select class="w-75 d-block m-3" v-model="item.seasons" @change="handleSelectChange">
@@ -13,8 +14,10 @@
                         </select>
                         <button class="button" @click="update">Mark</button>
                     </div>
-                    <div class="postcard__title h1">{{item.myViews.movie.title}}</div>
-                    <div class="postcard__preview-txt">{{item.myViews.plot}}</div>
+                    <div class="postcard__title h1">{{ item.myViews.movie.title }}</div>
+                    <div class="postcard__preview-txt">{{ item.myViews.plot }}</div>
+                    <button-lightning-components :callback="deleteMovie" :title="'DELETE'"
+                                                 class="w-50 bg-danger m-auto"/>
                 </div>
             </article>
         </div>
@@ -22,16 +25,18 @@
 </template>
 
 <script>
-import {_infoMovie, _updateMovie} from "../../services/http/httpRequestToServer";
+import {_delete, _infoMovie, _updateMovie} from "../../services/http/httpRequestToServer";
+import ButtonLightningComponents from "../elements/buttonLightningComponents.vue";
 
 export default {
     name: "myViewItem",
-    props:{
-        item:Object
+    components: {ButtonLightningComponents},
+    props: {
+        item: Object
     },
-    data(){
-        return{
-            episodes:this.item.episode,
+    data() {
+        return {
+            episodes: this.item.episode,
         }
     },
     methods: {
@@ -39,25 +44,33 @@ export default {
             this.getEpisodes();
             console.log(this.item.seasons); // Виведе вибране значення
         },
-        getEpisodes(){
+        getEpisodes() {
             _infoMovie({
                 "serial": this.item.myViews.movie,
                 "season": this.item.seasons,
-            }).then(data=>{
+            }).then(data => {
                 console.log(data);
-                if(data.episodes){
-                    this.episodes=data.episodes;
+                if (data.episodes) {
+                    this.episodes = data.episodes;
                 }
             })
         },
-        update(){
+        update() {
             _updateMovie({
                 "serial": this.item.myViews.movie,
                 "season": this.item.seasons,
                 "episode": this.item.episode
-            }).then(data=>{
-                console.log(data);
+            }).then(data => {
+                if(data.isUpdate){
+                    this.item.isView=true;
+                    this.$store.dispatch('updateLocalStorage');                }
             });
+        },
+        async deleteMovie() {
+            let isOperation = await _delete(this.item.myViews.movie)
+            if(isOperation.isDelete){
+                this.$store.dispatch('removeMyView', this.item);
+            }
         }
     },
     mounted() {
@@ -69,50 +82,48 @@ export default {
 
 <style scoped lang="scss">
 .button {
-    display: inline-block;
-    padding: 12px 28px;
-    font-size: 24px;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #fff;
-    background-image: linear-gradient(to bottom right, #00c6ff, #0072ff);
-    border: none;
-    border-radius: 40px;
-    box-shadow: 0px 4px 0px #0072ff;
-    transition: all 0.2s ease-in-out;
+  display: inline-block;
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  background-image: linear-gradient(to bottom right, #00c6ff, #0072ff);
+  border: none;
+  border-radius: 40px;
+  box-shadow: 0px 4px 0px #0072ff;
+  transition: all 0.2s ease-in-out;
 }
 
 .button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0px 6px 0px #0072ff;
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 0px #0072ff;
 }
 
 .button:active {
-    transform: translateY(0px);
-    box-shadow: none;
-    background-image: linear-gradient(to bottom right, #0072ff, #00c6ff);
+  transform: translateY(0px);
+  box-shadow: none;
+  background-image: linear-gradient(to bottom right, #0072ff, #00c6ff);
 }
 
 .button:before,
 .button:after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
 }
 
 .button:before {
-    top: -3px;
-    left: -3px;
-    border-radius: 40px;
+  top: -3px;
+  left: -3px;
+  border-radius: 40px;
 }
 
 .button:after {
-    bottom: -3px;
-    right: -3px;
-    border-radius: 40px;
+  bottom: -3px;
+  right: -3px;
+  border-radius: 40px;
 }
-
 
 
 .postcard {
@@ -125,7 +136,7 @@ export default {
   position: relative;
   color: #ffffff;
 
-    &.dark {
+  &.dark {
     background-color: #18151f;
   }
 

@@ -15,9 +15,12 @@ function getConfig(){
 
 export async function get(path) {
     try {
+        await store.dispatch('updateIsLoad', true);
         const response = await axios.get(url + path, getConfig());
+        await store.dispatch('updateIsLoad', false);
         return response.data;
     } catch (error) {
+        await store.dispatch('updateIsLoad', false);
         exception(error);
         throw error;
     }
@@ -25,10 +28,12 @@ export async function get(path) {
 
 export async function post(path, data) {
     try {
+        await store.dispatch('updateIsLoad', true);
         const response = await axios.post(url + path, data, getConfig());
-        console.log(response.data)
+        await store.dispatch('updateIsLoad', false);
         return response.data;
     } catch (error) {
+        await store.dispatch('updateIsLoad', false);
         exception(error);
     }
 }

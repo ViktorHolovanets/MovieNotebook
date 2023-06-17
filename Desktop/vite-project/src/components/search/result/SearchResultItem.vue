@@ -35,10 +35,10 @@ export default {
             console.log(this.item)
         },
         async addView() {
-            const data = await _addMovie(this.item);
-            if (!data.isError) {
-                this.getMyViews.push(data);
-            }
+            try {
+                const data = await _addMovie(this.item);
+                this.$store.dispatch('addMyView', data);
+            }catch (Ex){}
         }
     }
 }

@@ -67,3 +67,11 @@ export async function _getViews() {
         throw error;
     }
 }
+export async function _delete(data) {
+    try {
+        const response = await post(store.getters.getDelete,data);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
